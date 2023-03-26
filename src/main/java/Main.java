@@ -10,7 +10,7 @@ public class Main {
         JavaSchoolStarter starter = new JavaSchoolStarter();
 
         try {
-            List<Map<String, Object>> result = starter.execute("INSERT VALUES  ‘lastName’ = ‘Федоров’ , ‘id’=3, ‘age’=40, ‘active’=true");
+            List<Map<String, Object>> result = starter.execute("UPDATE VALUES ‘active’=false, ‘cost’=10.1 where ‘id’>=3 and ‘active’ = true and ‘lastName’ like ‘%п%’");
             result.forEach(System.out::println);
         }
         catch (Exception e){
