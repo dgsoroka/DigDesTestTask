@@ -48,6 +48,7 @@ public class JavaSchoolStarter {
         this.table.add(row1);
         this.table.add(row2);
         this.table.add(row3);
+        voidsFill();
 
 
 
@@ -71,6 +72,7 @@ public class JavaSchoolStarter {
             //Вывод словаря
             requestMap.forEach((s, o) -> System.out.println(s + " -> " + o));
             table.add(requestMap);
+            voidsFill();
 
         }
         else if(requestType.equals(Requests.UPDATE.toString())){
@@ -97,10 +99,9 @@ public class JavaSchoolStarter {
                 for(int i = 0; i < splitRequset.length; i++) {
                     valuesToReplace.add(List.of(splitRequset[i].split(" ")));
                 }
-                System.out.println(valuesToReplace.get(0).get(0));
+                valuesToReplace.forEach(System.out::println);
 
                 List<Object> conditionList = getListWhereConditions(whereCondition);
-//              Получаем названия колонок
 
 
                 for(int i = 0; i < conditionList.size(); i++){
@@ -114,6 +115,143 @@ public class JavaSchoolStarter {
                             case ("id"): //Возможно имеет смысл выделить данный отрезок кода в отдельный метод, но я пока не знаю,
 //                                         что делать с like, ilike, or и and. Пока все может работать только для простых условий
                                 System.out.println("Параметр id");
+                                i++;
+                                conditionForSearch = conditionList.get(i).toString();
+                                i++;
+                                conditionColValue = conditionList.get(i);
+
+                                switch (conditionForSearch){
+                                    case ("<="):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Long colValue = Long.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if(!(colValue <= Long.valueOf(conditionColValue.toString()))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+
+                                    case ("<"):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Long colValue = Long.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if(!(colValue < Long.valueOf(conditionColValue.toString()))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+
+                                    case (">"):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Long colValue = Long.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if(!(colValue > Long.valueOf(conditionColValue.toString()))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+
+                                    case (">="):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Long colValue = Long.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if(!(colValue >= Long.valueOf(conditionColValue.toString()))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+
+                                    case ("="):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Long colValue = Long.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if(!(colValue.equals(Long.valueOf(conditionColValue.toString())))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+
+                                    case ("!="):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Long colValue = Long.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if((colValue.equals(Long.valueOf(conditionColValue.toString())))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+                                }
+
+                                break;
+
+                            case ("lastname"):
+                                System.out.println("Параметр lastname");
+                                i++;
+                                conditionForSearch = conditionList.get(i).toString();
+                                i++;
+                                conditionColValue =  conditionList.get(i);
+                                String conditionColValueAsString = conditionColValue.toString().replaceAll("%", ".+");
+                                System.out.println("Условие поиска " + conditionForSearch);
+                                System.out.println("Выполняемое условие " + conditionColValue);
+                                System.out.println("Замена на паттерн " + conditionColValueAsString);
+                                String anyCaseLastnameSearch = new String();
+                                Pattern lastNameSearch;
+                                if(conditionForSearch.equals("like")) {
+                                    lastNameSearch = Pattern.compile(conditionColValueAsString);
+                                }
+                                else if(conditionForSearch.equals("ilike")){
+                                    conditionColValueAsString = "(?i)" + conditionColValueAsString;
+                                    lastNameSearch = Pattern.compile(conditionColValueAsString, Pattern.UNICODE_CASE);
+                                }
+                                else throw new Exception("Неверное условие для колонки lastName");
+
+                                for(int j = 0; j < updateListMap.size(); j++) {
+                                    String lastNameValue = updateListMap.get(j).get("lastname").toString();
+                                    Matcher lastNameMatch = lastNameSearch.matcher(lastNameValue);
+                                    if (!lastNameMatch.find()) {
+                                        updateListMap.remove(j);
+                                        j--;
+                                    }
+                                }
+                                    for(List<Object> value: valuesToReplace){
+                                        for(int g = 0; g < updateListMap.size(); g++)
+                                            updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                    }
+                                    this.table = updateListMap;
+                                    return updateListMap;
+
+                            case ("age"):
+                                System.out.println("Параметр age");
                                 i++;
                                 conditionForSearch = conditionList.get(i).toString();
                                 i++;
@@ -150,10 +288,55 @@ public class JavaSchoolStarter {
                                         this.table = updateListMap;
                                         return updateListMap;
 
+                                    case ("<"):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Long colValue = Long.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if(!(colValue < Long.valueOf(conditionColValue.toString()))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+
+                                    case (">"):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Long colValue = Long.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if(!(colValue > Long.valueOf(conditionColValue.toString()))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+
                                     case ("="):
                                         for(int j = 0; j < updateListMap.size(); j++){
                                             Long colValue = Long.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
-                                            if(!(colValue == Long.valueOf(conditionColValue.toString()))){
+                                            if(!(colValue.equals(Long.valueOf(conditionColValue.toString())))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+
+                                    case ("!="):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Long colValue = Long.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if((colValue.equals(Long.valueOf(conditionColValue.toString())))){
                                                 updateListMap.remove(j);
                                                 j--;
                                             }
@@ -165,24 +348,148 @@ public class JavaSchoolStarter {
                                         this.table = updateListMap;
                                         return updateListMap;
                                 }
-
-                                break;
-                            case ("lastname"):
-                                System.out.println("Параметр lastname");
-                                break;
-                            case ("age"):
-                                System.out.println("Параметр age");
                                 break;
                             case ("cost"):
                                 System.out.println("Параметр cost");
+                                i++;
+                                conditionForSearch = conditionList.get(i).toString();
+                                i++;
+                                conditionColValue = conditionList.get(i);
+
+                                switch (conditionForSearch){
+                                    case ("<="):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Double colValue = Double.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if(!(colValue <= Double.valueOf(conditionColValue.toString()))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+
+                                    case (">="):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Double colValue = Double.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if(!(colValue >= Double.valueOf(conditionColValue.toString()))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+
+                                    case ("<"):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Double colValue = Double.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if(!(colValue < Double.valueOf(conditionColValue.toString()))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+
+                                    case (">"):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Double colValue = Double.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if(!(colValue > Double.valueOf(conditionColValue.toString()))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+
+                                    case ("="):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Double colValue = Double.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if(!(colValue.equals(Double.valueOf(conditionColValue.toString())))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+
+                                    case ("!="):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Double colValue = Double.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if((colValue.equals(Double.valueOf(conditionColValue.toString())))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+                                }
                                 break;
                             case ("active"):
                                 System.out.println("Параметр active");
+                                i++;
+                                conditionForSearch = conditionList.get(i).toString();
+                                i++;
+                                conditionColValue = conditionList.get(i);
 
+                                switch (conditionForSearch){
+                                    case ("="):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Boolean colValue =  Boolean.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if(!(colValue.equals(Boolean.valueOf(conditionColValue.toString())))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+
+                                    case ("!="):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            Boolean colValue = Boolean.valueOf(updateListMap.get(j).get(potentialColumnName).toString());
+                                            if((colValue.equals(Boolean.valueOf(conditionColValue.toString())))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        for(List<Object> value: valuesToReplace){
+                                            for(int g = 0; g < updateListMap.size(); g++)
+                                                updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                        }
+                                        this.table = updateListMap;
+                                        return updateListMap;
+                                }
+                                break;
                         }
 
                             System.out.println(potentialColumnName);
-
 
                     }
                 }
@@ -222,16 +529,7 @@ public class JavaSchoolStarter {
         else throw new Exception();
 
 
-//      Проверка на заполненость ячеек передаваемого словаря и на наличие посторонних названий переменных
-        Set<String> expectedKeys = new HashSet<>(Arrays.asList("id", "cost", "lastname", "active", "age"));
-        for(Map<String, Object> map:table){
-            if(!map.containsKey("id")) map.put("id", null);
-            if(!map.containsKey("cost")) map.put("cost", null);
-            if(!map.containsKey("lastname")) map.put("lastname", null);
-            if(!map.containsKey("active")) map.put("active", null);
-            if(!map.containsKey("age")) map.put("age", null);
-            if(!map.keySet().equals(expectedKeys)) throw new ArrayStoreException("Введено неверное название переменной");
-        }
+
         return table;
     }
 
@@ -330,4 +628,16 @@ public class JavaSchoolStarter {
         return copy;
     }
 
+    private void voidsFill(){
+        //      Проверка на заполненость ячеек передаваемого словаря и на наличие посторонних названий переменных
+        Set<String> expectedKeys = new HashSet<>(Arrays.asList("id", "cost", "lastname", "active", "age"));
+        for(Map<String, Object> map:table){
+            if(!map.containsKey("id")) map.put("id", null);
+            if(!map.containsKey("cost")) map.put("cost", null);
+            if(!map.containsKey("lastname")) map.put("lastname", null);
+            if(!map.containsKey("active")) map.put("active", null);
+            if(!map.containsKey("age")) map.put("age", null);
+            if(!map.keySet().equals(expectedKeys)) throw new ArrayStoreException("Введено неверное название переменной");
+        }
+    }
 }
