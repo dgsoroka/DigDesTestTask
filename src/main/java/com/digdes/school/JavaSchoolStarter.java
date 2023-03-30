@@ -111,14 +111,18 @@ public class JavaSchoolStarter {
                                 .toLowerCase();
                         String conditionForSearch = "";
                         Object conditionColValue = "";
+                        i++;
+                        conditionForSearch = conditionList.get(i).toString();
+                        i++;
+                        conditionColValue = conditionList.get(i);
                         switch (potentialColumnName) {
                             case ("id"): //Возможно имеет смысл выделить данный отрезок кода в отдельный метод, но я пока не знаю,
 //                                         что делать с like, ilike, or и and. Пока все может работать только для простых условий
                                 System.out.println("Параметр id");
-                                i++;
-                                conditionForSearch = conditionList.get(i).toString();
-                                i++;
-                                conditionColValue = conditionList.get(i);
+//                                i++;
+//                                conditionForSearch = conditionList.get(i).toString();
+//                                i++;
+//                                conditionColValue = conditionList.get(i);
 
                                 switch (conditionForSearch){
                                     case ("<="):
@@ -216,33 +220,63 @@ public class JavaSchoolStarter {
 
                             case ("lastname"):
                                 System.out.println("Параметр lastname");
-                                i++;
-                                conditionForSearch = conditionList.get(i).toString();
-                                i++;
-                                conditionColValue =  conditionList.get(i);
+//                                i++;
+//                                conditionForSearch = conditionList.get(i).toString();
+//                                i++;
+//                                conditionColValue =  conditionList.get(i);
                                 String conditionColValueAsString = conditionColValue.toString().replaceAll("%", ".+");
                                 System.out.println("Условие поиска " + conditionForSearch);
                                 System.out.println("Выполняемое условие " + conditionColValue);
                                 System.out.println("Замена на паттерн " + conditionColValueAsString);
-                                String anyCaseLastnameSearch = new String();
-                                Pattern lastNameSearch;
-                                if(conditionForSearch.equals("like")) {
-                                    lastNameSearch = Pattern.compile(conditionColValueAsString);
-                                }
-                                else if(conditionForSearch.equals("ilike")){
-                                    conditionColValueAsString = "(?i)" + conditionColValueAsString;
-                                    lastNameSearch = Pattern.compile(conditionColValueAsString, Pattern.UNICODE_CASE);
-                                }
-                                else throw new Exception("Неверное условие для колонки lastName");
+//                                Нет условия, когда оператор сравнения = или !=, нужно дополнить
 
-                                for(int j = 0; j < updateListMap.size(); j++) {
-                                    String lastNameValue = updateListMap.get(j).get("lastname").toString();
-                                    Matcher lastNameMatch = lastNameSearch.matcher(lastNameValue);
-                                    if (!lastNameMatch.find()) {
-                                        updateListMap.remove(j);
-                                        j--;
-                                    }
+                                switch (conditionForSearch) {
+                                    case ("like"), ("ilike"):
+                                        Pattern lastNameSearch = null;
+                                        if (conditionForSearch.equals("like")) {
+                                            lastNameSearch = Pattern.compile(conditionColValueAsString);
+                                        } else if (conditionForSearch.equals("ilike")) {
+                                            conditionColValueAsString = "(?i)" + conditionColValueAsString;
+                                            lastNameSearch = Pattern.compile(conditionColValueAsString, Pattern.UNICODE_CASE);
+                                        }
+                                        for (int j = 0; j < updateListMap.size(); j++) {
+                                            String lastNameValue = updateListMap.get(j).get("lastname").toString();
+                                            Matcher lastNameMatch = lastNameSearch.matcher(lastNameValue);
+                                            if (!lastNameMatch.find()) {
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        break;
+
+                                    case ("="):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            String colValue = updateListMap.get(j).get(potentialColumnName).toString();
+                                            conditionColValue = conditionColValue.toString()
+                                                    .replaceAll("’|‘", "");
+                                            if(!(colValue.equals(conditionColValue.toString()))){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        break;
+
+                                    case ("!="):
+                                        for(int j = 0; j < updateListMap.size(); j++){
+                                            String colValue = updateListMap.get(j).get(potentialColumnName).toString();
+                                            conditionColValue = conditionColValue.toString()
+                                                    .replaceAll("’|‘", "");
+                                            if(colValue.equals(conditionColValue.toString())){
+                                                updateListMap.remove(j);
+                                                j--;
+                                            }
+                                        }
+                                        break;
+
+
+                                    default: throw new Exception("Неверное условие для колонки lastName");
                                 }
+
                                     for(List<Object> value: valuesToReplace){
                                         for(int g = 0; g < updateListMap.size(); g++)
                                             updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
@@ -252,10 +286,11 @@ public class JavaSchoolStarter {
 
                             case ("age"):
                                 System.out.println("Параметр age");
-                                i++;
-                                conditionForSearch = conditionList.get(i).toString();
-                                i++;
-                                conditionColValue = conditionList.get(i);
+//                                удалить на финальной версии, если все будет ок
+//                                i++;
+//                                conditionForSearch = conditionList.get(i).toString();
+//                                i++;
+//                                conditionColValue = conditionList.get(i);
 
                                 switch (conditionForSearch){
                                     case ("<="):
@@ -351,10 +386,10 @@ public class JavaSchoolStarter {
                                 break;
                             case ("cost"):
                                 System.out.println("Параметр cost");
-                                i++;
-                                conditionForSearch = conditionList.get(i).toString();
-                                i++;
-                                conditionColValue = conditionList.get(i);
+//                                i++;
+//                                conditionForSearch = conditionList.get(i).toString();
+//                                i++;
+//                                conditionColValue = conditionList.get(i);
 
                                 switch (conditionForSearch){
                                     case ("<="):
@@ -450,10 +485,10 @@ public class JavaSchoolStarter {
                                 break;
                             case ("active"):
                                 System.out.println("Параметр active");
-                                i++;
-                                conditionForSearch = conditionList.get(i).toString();
-                                i++;
-                                conditionColValue = conditionList.get(i);
+//                                i++;
+//                                conditionForSearch = conditionList.get(i).toString();
+//                                i++;
+//                                conditionColValue = conditionList.get(i);
 
                                 switch (conditionForSearch){
                                     case ("="):
@@ -587,8 +622,8 @@ public class JavaSchoolStarter {
                 conditionChars.clear();
                 continue;
             }
-            if(whereConditionChars[i] == '<' || whereConditionChars[i]  == '>' || whereConditionChars[i] == '='){
-                if(whereConditionChars[i-1] != '<'&& whereConditionChars[i-1] != '>' && whereConditionChars[i-1] != '=') {
+            if(whereConditionChars[i] == '<' || whereConditionChars[i]  == '>' || whereConditionChars[i] == '=' || whereConditionChars[i] == '!'){
+                if(whereConditionChars[i-1] != '<'&& whereConditionChars[i-1] != '>' && whereConditionChars[i-1] != '=' && whereConditionChars[i-1] != '!') {
                     if(conditionChars.isEmpty()){
                         conditionChars.add(whereConditionChars[i]);
                         continue;
@@ -602,8 +637,8 @@ public class JavaSchoolStarter {
                 }
             }
             if(i > 0) {
-                if (whereConditionChars[i] != '<' && whereConditionChars[i] != '>' && whereConditionChars[i] != '=') {
-                    if (whereConditionChars[i - 1] == '<' || whereConditionChars[i - 1] == '>' || whereConditionChars[i - 1] == '=') {
+                if (whereConditionChars[i] != '<' && whereConditionChars[i] != '>' && whereConditionChars[i] != '=' && whereConditionChars[i] != '!') {
+                    if (whereConditionChars[i - 1] == '<' || whereConditionChars[i - 1] == '>' || whereConditionChars[i - 1] == '=' || whereConditionChars[i-1] == '!') {
                         for (int j = 0; j < conditionChars.size(); j++) str += conditionChars.get(j);
                         conditionList.add(str);
 //                                System.out.println(str);
