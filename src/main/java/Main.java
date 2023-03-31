@@ -10,10 +10,14 @@ public class Main {
         JavaSchoolStarter starter = new JavaSchoolStarter();
 
         try {
-            List<Map<String, Object>> result = starter.execute("UPDATE VALUES ‘active’=false, ‘cost’=10.1");
+            List<Map<String, Object>> result = starter.execute("UPDATE VALUES ‘active’=false, ‘cost’=10.1 where ‘id’ <= 2");
             result.forEach(System.out::println);
-            List<Map<String, Object>> result1 = starter.execute("SELECT");
+            List<Map<String, Object>> result1 = starter.execute("SELECT where ‘id’ = 3");
             result1.forEach(System.out::println);
+            List<Map<String, Object>> result3 = starter.execute("DELETE where ‘id’ <= 2");
+            result3.forEach(System.out::println);
+            List<Map<String, Object>> result4 = starter.execute("SELECT");
+            result4.forEach(System.out::println);
         }
         catch (Exception e){
             e.printStackTrace();
