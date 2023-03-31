@@ -72,6 +72,7 @@ public class JavaSchoolStarter {
             requestMap.forEach((s, o) -> System.out.println(s + " -> " + o));
             table.add(requestMap);
             voidsFill();
+            return table;
 
         }
         else if(requestType.equals(Requests.UPDATE.toString())){
