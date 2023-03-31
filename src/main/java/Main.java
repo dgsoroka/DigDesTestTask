@@ -10,7 +10,7 @@ public class Main {
         JavaSchoolStarter starter = new JavaSchoolStarter();
 
         try {
-            List<Map<String, Object>> result = starter.execute("UPDATE VALUES ‘active’=false, ‘cost’=10.1 where ‘id’ <= 2");
+            List<Map<String, Object>> result = starter.execute("UPDATE VALUES ‘active’=false, ‘cost’=10.1");
             result.forEach(System.out::println);
             List<Map<String, Object>> result1 = starter.execute("SELECT");
             result1.forEach(System.out::println);

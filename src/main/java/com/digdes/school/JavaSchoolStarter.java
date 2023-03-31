@@ -99,6 +99,10 @@ public class JavaSchoolStarter {
                     valuesToReplace.add(List.of(splitRequset[i].split(" ")));
                 }
                 valuesToReplace.forEach(System.out::println);
+//                Проверяем все ли названо корректно
+                for(List<Object> list: valuesToReplace){
+                    if(!table.get(0).containsKey(list.get(0))){throw new Exception("Неверно задано имя столбца");}
+                }
 
                 List<Object> conditionList = getListWhereConditions(whereCondition);
 
@@ -154,11 +158,18 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+//                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
 
                                     case (">"):
@@ -169,11 +180,18 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+//                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
 
                                     case (">="):
@@ -184,11 +202,18 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+//                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
 
                                     case ("="):
@@ -199,11 +224,18 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+//                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
 
                                     case ("!="):
@@ -214,15 +246,25 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+//                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
+
+                                    default: throw new Exception("Неверное условие");
+
                                 }
 
-                                break;
+
 
                             case ("lastname"):
                                 System.out.println("Параметр lastname");
@@ -283,12 +325,19 @@ public class JavaSchoolStarter {
                                     default: throw new Exception("Неверное условие для колонки lastName");
                                 }
 
-                                    for(List<Object> value: valuesToReplace){
-                                        for(int g = 0; g < updateListMap.size(); g++)
-                                            updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
-                                    }
-                                    this.table = updateListMap;
-                                    return updateListMap;
+//                                      Удаление изменяемых строк из основной таблицы
+                                for(Map<String, Object> map :updateListMap){
+                                    table.remove(map);
+                                }
+                                for(List<Object> value: valuesToReplace){
+                                    for(int g = 0; g < updateListMap.size(); g++)
+                                        updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
+                                }
+//                                      Добавление измененных строк в основную таблицу
+                                for(Map<String, Object> map :updateListMap){
+                                    table.add(map);
+                                }
+                                return updateListMap;
 
                             case ("age"):
                                 System.out.println("Параметр age");
@@ -322,11 +371,18 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+//                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
 
                                     case ("<"):
@@ -337,11 +393,18 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+//                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
 
                                     case (">"):
@@ -352,11 +415,18 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+//                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
 
                                     case ("="):
@@ -367,11 +437,18 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+//                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
 
                                     case ("!="):
@@ -382,11 +459,18 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+                                        //                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
                                 }
                                 break;
@@ -406,11 +490,18 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+//                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
 
                                     case (">="):
@@ -421,11 +512,18 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+//                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
 
                                     case ("<"):
@@ -436,11 +534,18 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+//                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
 
                                     case (">"):
@@ -451,11 +556,18 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+//                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
 
                                     case ("="):
@@ -466,11 +578,18 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+//                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
 
                                     case ("!="):
@@ -481,14 +600,22 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+                                        //                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
                                 }
-                                break;
+                                default: throw new Exception("Неверное условие");
+
                             case ("active"):
                                 System.out.println("Параметр active");
 //                                i++;
@@ -505,11 +632,18 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+//                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
 
                                     case ("!="):
@@ -520,28 +654,54 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+                                        //Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                        }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
+
+                                    default: throw new Exception("Неверное условие");
                                 }
-                                break;
                         }
 
                             System.out.println(potentialColumnName);
 
                     }
                 }
-
-                conditionList.forEach(System.out::println);
-
-                System.out.println("Есть условие " + whereCondition);
-
             }
             else {
-                System.out.println("Нет условия");
+                request = request.replaceAll(pattern, "");
+                String[] splitRequset = request.split(",");
+                for (int i = 0; i < splitRequset.length; i++) {
+                    splitRequset[i] = splitRequset[i].replaceAll("\s+", "")
+                            .replaceAll("=", " ")
+                            .replaceAll("’|‘", "")
+                            .replaceAll("(?i)where\\s*.*", "");
+                }
+
+                List<List<Object>> valuesToReplace = new ArrayList<>();
+                for (int i = 0; i < splitRequset.length; i++) {
+                    valuesToReplace.add(List.of(splitRequset[i].split(" ")));
+                }
+                valuesToReplace.forEach(System.out::println);
+//                Проверяем все ли названо корректно
+                for (List<Object> list : valuesToReplace) {
+                    if (!table.get(0).containsKey(list.get(0))) {
+                        throw new Exception("Неверно задано имя столбца");
+                    }
+                }
+                for(List<Object> value: valuesToReplace){
+                    for(int g = 0; g < table.size(); g++)
+                        table.get(g).replace(value.get(0).toString(), value.get(1));
+                }
             }
 
         }
@@ -565,7 +725,7 @@ public class JavaSchoolStarter {
             }
             else {
                 System.out.println("Нет условия");
-                return this.table;
+                return table;
             }
         }
         else throw new Exception();
