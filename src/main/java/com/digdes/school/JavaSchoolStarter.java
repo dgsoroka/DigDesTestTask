@@ -14,17 +14,9 @@ public class JavaSchoolStarter {
     private final Pattern wherePattern = Pattern.compile(whereFindString);
     private final Pattern whereSyntaxPatteern = Pattern.compile(whereSyntaxString);
     private final Pattern requestPattern = Pattern.compile(pattern);
-    private List<Map<String, Object>> table;
+    private static List<Map<String, Object>> table = new ArrayList<Map<String, Object>>();
 
     public JavaSchoolStarter(){
-
-    }
-
-    public List<Map<String, Object>> execute(String request) throws Exception{
-        this.table = new ArrayList<Map<String, Object>>();
-        String requestType = requestMatcher(request).toLowerCase();
-
-        //      Тестовые данные
         Map<String, Object> row1 = new HashMap<String, Object>();
         row1.put("id",1);
         row1.put("lastname","Петров");
@@ -49,6 +41,13 @@ public class JavaSchoolStarter {
         this.table.add(row2);
         this.table.add(row3);
         voidsFill();
+    }
+
+    public List<Map<String, Object>> execute(String request) throws Exception{
+        String requestType = requestMatcher(request).toLowerCase();
+
+        //      Тестовые данные
+
 
 
 
@@ -133,11 +132,18 @@ public class JavaSchoolStarter {
                                                 j--;
                                             }
                                         }
+//                                      Удаление изменяемых строк из основной таблицы
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.remove(map);
+                                    }
                                         for(List<Object> value: valuesToReplace){
                                             for(int g = 0; g < updateListMap.size(); g++)
                                                 updateListMap.get(g).replace(value.get(0).toString(), value.get(1));
                                         }
-                                        this.table = updateListMap;
+//                                      Добавление измененных строк в основную таблицу
+                                        for(Map<String, Object> map :updateListMap){
+                                            table.add(map);
+                                        }
                                         return updateListMap;
 
                                     case ("<"):
@@ -559,6 +565,7 @@ public class JavaSchoolStarter {
             }
             else {
                 System.out.println("Нет условия");
+                return this.table;
             }
         }
         else throw new Exception();
