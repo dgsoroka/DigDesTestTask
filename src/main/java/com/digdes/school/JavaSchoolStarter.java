@@ -12,45 +12,16 @@ public class JavaSchoolStarter {
 
 
     private final Pattern wherePattern = Pattern.compile(whereFindString);
-    private final Pattern whereSyntaxPatteern = Pattern.compile(whereSyntaxString);
+    private final Pattern whereSyntaxPattern = Pattern.compile(whereSyntaxString);
     private final Pattern requestPattern = Pattern.compile(pattern);
     private static List<Map<String, Object>> table = new ArrayList<Map<String, Object>>();
 
     public JavaSchoolStarter(){
-        Map<String, Object> row1 = new HashMap<String, Object>();
-        row1.put("id",1);
-        row1.put("lastname","Петров");
-        row1.put("age",30);
-        row1.put("cost",5.4);
-        row1.put("active", true);
 
-        Map<String,Object> row2 = new HashMap<>();
-        row2.put("id",2);
-        row2.put("lastname","Иванов");
-        row2.put("age",25);
-        row2.put("cost",4.3);
-        row2.put("active", false);
-
-        Map<String,Object> row3 = new HashMap<>();
-        row3.put("id",3);
-        row3.put("lastname","Федоров");
-        row3.put("age",40);
-        row3.put("active", true);
-
-        this.table.add(row1);
-        this.table.add(row2);
-        this.table.add(row3);
-        voidsFill();
     }
 
     public List<Map<String, Object>> execute(String request) throws Exception{
         String requestType = requestMatcher(request).toLowerCase();
-
-        //      Тестовые данные
-
-
-
-
         if(requestType.equals(Requests.INSERT.toString())){
 
             //Отчистка запроса от всего ненужного
@@ -123,11 +94,6 @@ public class JavaSchoolStarter {
                             case ("id"): //Возможно имеет смысл выделить данный отрезок кода в отдельный метод, но я пока не знаю,
 //                                         что делать с like, ilike, or и and. Пока все может работать только для простых условий
                                 System.out.println("Параметр id");
-//                                i++;
-//                                conditionForSearch = conditionList.get(i).toString();
-//                                i++;
-//                                conditionColValue = conditionList.get(i);
-
                                 switch (conditionForSearch){
                                     case ("<="):
                                         for(int j = 0; j < updateListMap.size(); j++){
@@ -269,10 +235,6 @@ public class JavaSchoolStarter {
 
                             case ("lastname"):
                                 System.out.println("Параметр lastname");
-//                                i++;
-//                                conditionForSearch = conditionList.get(i).toString();
-//                                i++;
-//                                conditionColValue =  conditionList.get(i);
                                 String conditionColValueAsString = conditionColValue.toString().replaceAll("%", ".+");
                                 System.out.println("Условие поиска " + conditionForSearch);
                                 System.out.println("Выполняемое условие " + conditionColValue);
@@ -342,11 +304,6 @@ public class JavaSchoolStarter {
 
                             case ("age"):
                                 System.out.println("Параметр age");
-//                                удалить на финальной версии, если все будет ок
-//                                i++;
-//                                conditionForSearch = conditionList.get(i).toString();
-//                                i++;
-//                                conditionColValue = conditionList.get(i);
 
                                 switch (conditionForSearch){
                                     case ("<="):
@@ -484,11 +441,6 @@ public class JavaSchoolStarter {
                                 break;
                             case ("cost"):
                                 System.out.println("Параметр cost");
-//                                i++;
-//                                conditionForSearch = conditionList.get(i).toString();
-//                                i++;
-//                                conditionColValue = conditionList.get(i);
-
                                 switch (conditionForSearch){
                                     case ("<="):
                                         for(int j = 0; j < updateListMap.size(); j++){
@@ -626,11 +578,6 @@ public class JavaSchoolStarter {
 
                             case ("active"):
                                 System.out.println("Параметр active");
-//                                i++;
-//                                conditionForSearch = conditionList.get(i).toString();
-//                                i++;
-//                                conditionColValue = conditionList.get(i);
-
                                 switch (conditionForSearch){
                                     case ("="):
                                         for(int j = 0; j < updateListMap.size(); j++){
@@ -722,9 +669,6 @@ public class JavaSchoolStarter {
                 String columnName = "";
 //          Отчистка от мусора
                 String whereCondition = whereMatcher(request).replaceAll("(?i)where\\s*", "");
-                //                        .replaceAll("’|‘", "")
-                //                        .replaceAll("and", " ");
-//              Удаление лишней информации из request
                 request = request.replaceAll(pattern, "");
                 String[] splitRequset = request.split(",");
                 for(int i = 0; i < splitRequset.length; i++) {
@@ -752,11 +696,6 @@ public class JavaSchoolStarter {
                             case ("id"): //Возможно имеет смысл выделить данный отрезок кода в отдельный метод, но я пока не знаю,
 //                                         что делать с like, ilike, or и and. Пока все может работать только для простых условий
                                 System.out.println("Параметр id");
-//                                i++;
-//                                conditionForSearch = conditionList.get(i).toString();
-//                                i++;
-//                                conditionColValue = conditionList.get(i);
-
                                 switch (conditionForSearch) {
                                     case ("<="):
                                         for (int j = 0; j < updateListMap.size(); j++) {
@@ -860,10 +799,6 @@ public class JavaSchoolStarter {
 
                             case ("lastname"):
                                 System.out.println("Параметр lastname");
-//                                i++;
-//                                conditionForSearch = conditionList.get(i).toString();
-//                                i++;
-//                                conditionColValue =  conditionList.get(i);
                                 String conditionColValueAsString = conditionColValue.toString().replaceAll("%", ".+");
                                 System.out.println("Условие поиска " + conditionForSearch);
                                 System.out.println("Выполняемое условие " + conditionColValue);
@@ -927,12 +862,6 @@ public class JavaSchoolStarter {
 
                             case ("age"):
                                 System.out.println("Параметр age");
-//                                удалить на финальной версии, если все будет ок
-//                                i++;
-//                                conditionForSearch = conditionList.get(i).toString();
-//                                i++;
-//                                conditionColValue = conditionList.get(i);
-
                                 switch (conditionForSearch) {
                                     case ("<="):
                                         for (int j = 0; j < updateListMap.size(); j++) {
@@ -1027,11 +956,6 @@ public class JavaSchoolStarter {
                                 break;
                             case ("cost"):
                                 System.out.println("Параметр cost");
-//                                i++;
-//                                conditionForSearch = conditionList.get(i).toString();
-//                                i++;
-//                                conditionColValue = conditionList.get(i);
-
                                 switch (conditionForSearch) {
                                     case ("<="):
                                         for (int j = 0; j < updateListMap.size(); j++) {
@@ -1128,11 +1052,6 @@ public class JavaSchoolStarter {
 
                             case ("active"):
                                 System.out.println("Параметр active");
-//                                i++;
-//                                conditionForSearch = conditionList.get(i).toString();
-//                                i++;
-//                                conditionColValue = conditionList.get(i);
-
                                 switch (conditionForSearch) {
                                     case ("="):
                                         for (int j = 0; j < updateListMap.size(); j++) {
@@ -1189,8 +1108,6 @@ public class JavaSchoolStarter {
                 String columnName = "";
 //          Отчистка от мусора
                 String whereCondition = whereMatcher(request).replaceAll("(?i)where\\s*", "");
-                //                        .replaceAll("’|‘", "")
-                //                        .replaceAll("and", " ");
 //              Удаление лишней информации из request
                 request = request.replaceAll(pattern, "");
                 String[] splitRequset = request.split(",");
@@ -1219,11 +1136,6 @@ public class JavaSchoolStarter {
                             case ("id"): //Возможно имеет смысл выделить данный отрезок кода в отдельный метод, но я пока не знаю,
 //                                         что делать с like, ilike, or и and. Пока все может работать только для простых условий
                                 System.out.println("Параметр id");
-//                                i++;
-//                                conditionForSearch = conditionList.get(i).toString();
-//                                i++;
-//                                conditionColValue = conditionList.get(i);
-
                                 switch (conditionForSearch){
                                     case ("<="):
                                         for(int j = 0; j < updateListMap.size(); j++){
@@ -1293,10 +1205,6 @@ public class JavaSchoolStarter {
 
                             case ("lastname"):
                                 System.out.println("Параметр lastname");
-//                                i++;
-//                                conditionForSearch = conditionList.get(i).toString();
-//                                i++;
-//                                conditionColValue =  conditionList.get(i);
                                 String conditionColValueAsString = conditionColValue.toString().replaceAll("%", ".+");
                                 System.out.println("Условие поиска " + conditionForSearch);
                                 System.out.println("Выполняемое условие " + conditionColValue);
@@ -1353,12 +1261,6 @@ public class JavaSchoolStarter {
 
                             case ("age"):
                                 System.out.println("Параметр age");
-//                                удалить на финальной версии, если все будет ок
-//                                i++;
-//                                conditionForSearch = conditionList.get(i).toString();
-//                                i++;
-//                                conditionColValue = conditionList.get(i);
-
                                 switch (conditionForSearch){
                                     case ("<="):
                                         for(int j = 0; j < updateListMap.size(); j++){
@@ -1428,11 +1330,6 @@ public class JavaSchoolStarter {
                                 break;
                             case ("cost"):
                                 System.out.println("Параметр cost");
-//                                i++;
-//                                conditionForSearch = conditionList.get(i).toString();
-//                                i++;
-//                                conditionColValue = conditionList.get(i);
-
                                 switch (conditionForSearch){
                                     case ("<="):
                                         for(int j = 0; j < updateListMap.size(); j++){
@@ -1504,11 +1401,6 @@ public class JavaSchoolStarter {
 
                             case ("active"):
                                 System.out.println("Параметр active");
-//                                i++;
-//                                conditionForSearch = conditionList.get(i).toString();
-//                                i++;
-//                                conditionColValue = conditionList.get(i);
-
                                 switch (conditionForSearch){
                                     case ("="):
                                         for(int j = 0; j < updateListMap.size(); j++){
@@ -1567,7 +1459,7 @@ public class JavaSchoolStarter {
     }
 
     private boolean whereCorrectSyntax(String request){
-        Matcher matcher = whereSyntaxPatteern.matcher(request);
+        Matcher matcher = whereSyntaxPattern.matcher(request);
         if(matcher.find()) {
             return true;
         }
@@ -1595,7 +1487,6 @@ public class JavaSchoolStarter {
             if(i == whereConditionChars.length){ //Это здесь необходимо, чтобы получать последние символы строки
                 for (int j = 0; j < conditionChars.size(); j++) str += conditionChars.get(j);
                 conditionList.add(str);
-//                        System.out.println(str);
                 break;
             }
             str = "";
@@ -1603,7 +1494,6 @@ public class JavaSchoolStarter {
                 if(conditionChars.isEmpty()) continue;
                 for(int j = 0; j < conditionChars.size(); j++) str += conditionChars.get(j);
                 conditionList.add(str);
-//                        System.out.println(str);
                 conditionChars.clear();
                 continue;
             }
@@ -1615,7 +1505,6 @@ public class JavaSchoolStarter {
                     }
                     for (int j = 0; j < conditionChars.size(); j++) str += conditionChars.get(j);
                     conditionList.add(str);
-//                            System.out.println(str);
                     conditionChars.clear();
                     conditionChars.add(whereConditionChars[i]);
                     continue;
@@ -1626,7 +1515,6 @@ public class JavaSchoolStarter {
                     if (whereConditionChars[i - 1] == '<' || whereConditionChars[i - 1] == '>' || whereConditionChars[i - 1] == '=' || whereConditionChars[i-1] == '!') {
                         for (int j = 0; j < conditionChars.size(); j++) str += conditionChars.get(j);
                         conditionList.add(str);
-//                                System.out.println(str);
                         conditionChars.clear();
                         conditionChars.add(whereConditionChars[i]);
                         str = "";
